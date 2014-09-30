@@ -1,0 +1,36 @@
+﻿@model Data.Models.AuthorizationModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Authorization Server</h2>
+
+<p>The application @ViewBag.AppName wants access to your account.</p>
+
+<p>Do you want to grant @ViewBag.AppName access?</p>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m=>m.response_type)
+    @Html.HiddenFor(m=>m.client_id)
+    @Html.HiddenFor(m=>m.redirect_uri)
+    @Html.HiddenFor(m=>m.scope)
+    @Html.HiddenFor(m=>m.state)
+    Model.Deny = true;
+    @Html.HiddenFor(m=>m.Deny)
+    <input type="submit" value="Deny" />
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m=>m.response_type)
+    @Html.HiddenFor(m=>m.client_id)
+    @Html.HiddenFor(m=>m.redirect_uri)
+    @Html.HiddenFor(m=>m.scope)
+    @Html.HiddenFor(m=>m.state)
+    Model.Deny = false;
+    @Html.HiddenFor(m=>m.Deny)
+    <input type="submit" value="Approve" />
+}
