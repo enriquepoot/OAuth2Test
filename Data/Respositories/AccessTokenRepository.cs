@@ -1,6 +1,8 @@
 ﻿using Data.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace Data.Respositories
 {
     public class AccessTokenRepository
     {
-        private List<AccessToken> repo;
+        private static List<AccessToken> repo;
 
         public AccessTokenRepository()
         {
@@ -29,6 +31,20 @@ namespace Data.Respositories
             {
                 return false;
             }
+        }
+
+        public AccessToken GetAuthToken(string token)
+        {
+            return repo
+                .Where(w => w.Token.Equals(token))
+                .FirstOrDefault();
+        }
+
+        public AccessToken GetRefreshToken(string refresh_token)
+        {
+            return repo
+                .Where(w => w.RefreshToken.Equals(refresh_token))
+                .FirstOrDefault();
         }
     }
 }

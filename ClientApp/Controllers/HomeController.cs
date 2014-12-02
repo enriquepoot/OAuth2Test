@@ -35,12 +35,21 @@ namespace ClientApp.Controllers
 
                 var result = RequestAccessToken(code, returnPath);
 
-                if (string.IsNullOrEmpty(result.error))
+                if (!string.IsNullOrEmpty(result.error))
                 {
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
 
-                return Json(result, JsonRequestBehavior.AllowGet);
+                var resultRefresh = RequestAccessToken(result.refresh_token, returnPath, true);
+
+                if (!string.IsNullOrEmpty(resultRefresh.error))
+                {
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                var data = CallApi(resultRefresh.access_token);
+
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -48,7 +57,7 @@ namespace ClientApp.Controllers
             }
         }
 
-        public static AccessToken RequestAccessToken(string code, string rUri)
+        public static AccessToken RequestAccessToken(string code, string rUri, bool refresh_token = false)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:63226/");
@@ -58,11 +67,19 @@ namespace ClientApp.Controllers
                 new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
             NameValueCollection data = new NameValueCollection();
-            data.Add("code", code);
             data.Add("client_id", "bXljbGllbnRpZA==");
             data.Add("client_secret", "aXQnc2FzZWNyZXQ=");
-            data.Add("redirect_uri", rUri);
-            data.Add("grant_type", "authorization_code");
+            if (refresh_token)
+            {
+                data.Add("refresh_token", code);
+                data.Add("grant_type", "refresh_token");
+            }
+            else
+            {
+                data.Add("code", code);
+                data.Add("redirect_uri", rUri);
+                data.Add("grant_type", "authorization_code");
+            }
 
             HttpResponseMessage response = client.PostAsync(string.Format("oauth2/token"), new FormUrlEncodedContent(
                                               data.
@@ -70,6 +87,27 @@ namespace ClientApp.Controllers
                                                       k => k, v => data[v]))).Result;
 
             return response.Content.ReadAsAsync<AccessToken>().Result;
+        }
+
+        public static string CallApi(string accessToken)
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:63226/api/");
+
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
+            HttpResponseMessage response = client.GetAsync(string.Format("values/who_am_i?access_token={0}", HttpUtility.UrlEncode(accessToken))).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body. Blocking!
+                return response.Content.ReadAsStringAsync().Result;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         //

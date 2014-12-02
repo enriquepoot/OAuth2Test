@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +43,7 @@
     <Compile Include="Entities\AccessToken.cs" />
     <Compile Include="Entities\AuthorizationCode.cs" />
     <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Models\AccessTokenModel.cs" />
     <Compile Include="Models\AuthorizationGrantModel.cs" />
     <Compile Include="Models\AuthorizationModel.cs" />
@@ -49,6 +51,7 @@
     <Compile Include="Respositories\AccessTokenRepository.cs" />
     <Compile Include="Respositories\AuthorizationCodeRepository.cs" />
     <Compile Include="Respositories\ClientRepository.cs" />
+    <Compile Include="Respositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

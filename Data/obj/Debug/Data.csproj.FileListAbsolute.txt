@@ -1,4 +1,6 @@
-c:\users\epoot\documents\visual studio 2012\Projects\OAuth2Test\Data\bin\Debug\Data.dll
-c:\users\epoot\documents\visual studio 2012\Projects\OAuth2Test\Data\bin\Debug\Data.pdb
-c:\users\epoot\documents\visual studio 2012\Projects\OAuth2Test\Data\obj\Debug\Data.dll
-c:\users\epoot\documents\visual studio 2012\Projects\OAuth2Test\Data\obj\Debug\Data.pdb
+C:\Users\epoot\Documents\Visual Studio 2012\Projects\OAuth2Test\Data\bin\Debug\Data.dll
+C:\Users\epoot\Documents\Visual Studio 2012\Projects\OAuth2Test\Data\bin\Debug\Data.pdb
+C:\Users\epoot\Documents\Visual Studio 2012\Projects\OAuth2Test\Data\bin\Debug\Newtonsoft.Json.dll
+C:\Users\epoot\Documents\Visual Studio 2012\Projects\OAuth2Test\Data\obj\Debug\Data.dll
+C:\Users\epoot\Documents\Visual Studio 2012\Projects\OAuth2Test\Data\obj\Debug\Data.pdb
+C:\Users\epoot\Documents\Visual Studio 2012\Projects\OAuth2Test\Data\obj\Debug\Data.csprojResolveAssemblyReference.cache
